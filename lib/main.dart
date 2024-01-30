@@ -8,6 +8,7 @@ import 'home_page.dart';
 
 void main() {
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     // root widget of our entire application.
     title: 'My first app',
     home: LoginPage(),

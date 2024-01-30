@@ -1,4 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+
+final TextEditingController emailController = TextEditingController();
+final TextEditingController passwordController = TextEditingController();
+
+bool validateFunction() {
+  if (emailController.text.length < 6) {
+    print("Email is incorrect");
+    return false;
+  } else if (passwordController.text.length < 4) {
+    print("password is incorrect");
+    return false;
+  } else {
+    return true;
+  }
+}
+
+void performLogin() {
+  if (validateFunction()) {
+    print('Login Successfully');
+  }
+}
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -18,8 +40,12 @@ class LoginPage extends StatelessWidget {
       body: ListView(
           padding: EdgeInsets.symmetric(horizontal: 50, vertical: 30),
           children: [
+            Lottie.network(
+                'https://lottie.host/2fdbaba5-7379-49a5-a05f-64df89761a6b/RLcurpb40t.json',
+                height: 650),
             // ListView to add scrolling functionality of Column (widgets)
             TextField(
+              controller: emailController,
               decoration: InputDecoration(
                   hintText: 'Enter Email Address',
                   border: OutlineInputBorder()),
@@ -28,12 +54,20 @@ class LoginPage extends StatelessWidget {
               height: 30,
             ),
             TextField(
+                controller: passwordController,
+                obscureText: true,
                 decoration: InputDecoration(
                     hintText: 'Enter Password', border: OutlineInputBorder())),
             Container(
               height: 30,
             ),
-            ElevatedButton(onPressed: () {}, child: Text("Login"))
+            ElevatedButton(
+                onPressed: () {
+                  performLogin();
+                  // print(emailController.text);
+                  // print(passwordController.text);
+                },
+                child: Text("Login"))
           ]),
     );
   }
