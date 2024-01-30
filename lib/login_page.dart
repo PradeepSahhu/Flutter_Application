@@ -5,7 +5,9 @@ final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 
 bool validateFunction() {
-  if (emailController.text.length < 6) {
+  if (!RegExp(
+          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+      .hasMatch(emailController.text)) {
     print("Email is incorrect");
     return false;
   } else if (passwordController.text.length < 4) {
