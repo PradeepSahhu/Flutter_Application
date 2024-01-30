@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_workshop_application/login_page.dart';
 
 import 'products_page.dart';
 // import 'package:flutter_workshop_application/login_page.dart';
@@ -13,6 +14,6 @@ void main() {
     debugShowCheckedModeBanner: false,
     // root widget of our entire application.
     title: 'My first app',
-    home: ProductsPage(),
+    home: LoginPage(),
   ));
 }

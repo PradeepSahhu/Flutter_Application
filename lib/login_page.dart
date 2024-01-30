@@ -1,32 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_workshop_application/products_page.dart';
 import 'package:lottie/lottie.dart';
 
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 
-bool validateFunction() {
+bool isShowPassword = false;
+
+bool validateFunction(context) {
   if (!RegExp(
           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
       .hasMatch(emailController.text)) {
-    print("Email is incorrect");
+    ScaffoldMessenger.of(context) // context - current page.
+        .showSnackBar(const SnackBar(
+      content: Text("Incorrect Email"),
+      backgroundColor: Colors.red,
+    ));
     return false;
   } else if (passwordController.text.length < 4) {
-    print("password is incorrect");
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text("Incorrect Password"),
+      backgroundColor: Colors.red,
+    ));
     return false;
   } else {
     return true;
   }
 }
 
-void performLogin() {
-  if (validateFunction()) {
-    print('Login Successfully');
+void performLogin(BuildContext context) {
+  if (validateFunction(context)) {
+    // print('Login Successfully');
+    if (emailController.text == 'demo@gmail.com' &&
+        passwordController.text == '11111') {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => ProductsPage(),
+      ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Wrong Credentials"),
+        backgroundColor: Colors.red,
+      ));
+      // print("Wrong Credentials");
+    }
   }
 }
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,15 +84,24 @@ class LoginPage extends StatelessWidget {
             ),
             TextField(
                 controller: passwordController,
-                obscureText: true,
+                obscureText: !isShowPassword,
                 decoration: InputDecoration(
-                    hintText: 'Enter Password', border: OutlineInputBorder())),
+                  hintText: 'Enter Password',
+                  border: OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isShowPassword = !isShowPassword;
+                        });
+                      },
+                      icon: Icon(Icons.remove_red_eye)),
+                )),
             Container(
               height: 30,
             ),
             ElevatedButton(
                 onPressed: () {
-                  performLogin();
+                  performLogin(context);
                   // print(emailController.text);
                   // print(passwordController.text);
                 },
