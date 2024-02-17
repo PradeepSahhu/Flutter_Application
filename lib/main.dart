@@ -8,7 +8,7 @@ import 'products_page.dart';
 // import 'home_page.dart';
 
 //Entry point of this application void main() function
-
+//! completed
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
